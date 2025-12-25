@@ -1,0 +1,421 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #0a1628, #1a365d);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: starTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.snowflake {
+    position: absolute;
+    top: -10px;
+    color: white;
+    font-size: 1.5rem;
+    animation: fall linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 10;
+}
+
+.envelope-wrapper {
+    perspective: 1000px;
+    cursor: pointer;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.envelope-wrapper.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: #c41e3a;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.envelope:hover {
+    transform: scale(1.05);
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 100px solid #a01729;
+    transform-origin: top center;
+    z-index: 3;
+}
+
+.envelope-body {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background: #c41e3a;
+    border-radius: 0 0 10px 10px;
+}
+
+.envelope-seal {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: #ffd700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 4;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+}
+
+.instruction {
+    text-align: center;
+    color: #ffd700;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    animation: pulse 2s ease-in-out infinite;
+    transition: opacity 0.6s ease;
+    padding: 0 10px;
+}
+
+.instruction.hidden {
+    opacity: 0;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+.letter {
+    position: fixed;
+    width: 90%;
+    max-width: 450px;
+    height: auto;
+    max-height: 90vh;
+    background: linear-gradient(to bottom, #fff9e6, #fffef7);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 10px;
+    padding: 40px 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: all 0.8s ease;
+    z-index: 100;
+    border: 3px solid #ffd700;
+    overflow-y: auto;
+    pointer-events: none;
+}
+
+.letter.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+}
+
+.letter-header {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ffd700;
+    padding-bottom: 15px;
+}
+
+.letter h1 {
+    font-size: 2.2rem;
+    color: #c41e3a;
+    margin-bottom: 5px;
+}
+
+.letter-tree {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.letter-content {
+    color: #333;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+.letter-lights {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.light {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: twinkle 1.5s ease-in-out infinite;
+}
+
+.light:nth-child(1) { background: #4169E1; animation-delay: 0s; }
+.light:nth-child(2) { background: #1E90FF; animation-delay: 0.3s; }
+.light:nth-child(3) { background: #00BFFF; animation-delay: 0.6s; }
+.light:nth-child(4) { background: #87CEEB; animation-delay: 0.9s; }
+.light:nth-child(5) { background: #4682B4; animation-delay: 1.2s; }
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 10px currentColor; }
+}
+
+.letter-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #ffd700;
+    color: #c41e3a;
+    font-style: italic;
+}
+
+.letter-gifts {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #c41e3a;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
+}
+
+/* RESPONSIVE PARA TABLETS */
+@media (max-width: 768px) {
+    .envelope {
+        width: 250px;
+        height: 167px;
+    }
+
+    .envelope-flap {
+        border-left: 125px solid transparent;
+        border-right: 125px solid transparent;
+        border-top: 83px solid #a01729;
+    }
+
+    .envelope-body {
+        height: 83px;
+    }
+
+    .envelope-seal {
+        top: 75px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+
+    .instruction {
+        font-size: 1rem;
+    }
+
+    .letter {
+        padding: 30px 25px;
+    }
+
+    .letter h1 {
+        font-size: 1.8rem;
+    }
+
+    .letter-tree {
+        font-size: 2rem;
+    }
+
+    .letter-content {
+        font-size: 1rem;
+    }
+}
+
+/* RESPONSIVE PARA MÓVILES */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .envelope {
+        width: 200px;
+        height: 133px;
+    }
+
+    .envelope-flap {
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        border-top: 67px solid #a01729;
+    }
+
+    .envelope-body {
+        height: 67px;
+    }
+
+    .envelope-seal {
+        top: 60px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .instruction {
+        font-size: 0.9rem;
+        margin-top: 15px;
+    }
+
+    .letter {
+        width: 95%;
+        padding: 25px 20px;
+        max-height: 85vh;
+    }
+
+    .letter h1 {
+        font-size: 1.5rem;
+    }
+
+    .letter-header div {
+        font-size: 0.9rem !important;
+    }
+
+    .letter-tree {
+        font-size: 1.8rem;
+    }
+
+    .letter-content {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .letter-content p {
+        margin-bottom: 12px !important;
+    }
+
+    .letter-gifts {
+        font-size: 1.3rem;
+    }
+
+    .letter-footer {
+        font-size: 0.9rem;
+    }
+
+    .close-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 1.1rem;
+    }
+
+    .light {
+        width: 8px;
+        height: 8px;
+    }
+
+    .snowflake {
+        font-size: 1rem;
+    }
+}
+
+/* RESPONSIVE PARA MÓVILES MUY PEQUEÑOS */
+@media (max-width: 360px) {
+    .envelope {
+        width: 180px;
+        height: 120px;
+    }
+
+    .envelope-flap {
+        border-left: 90px solid transparent;
+        border-right: 90px solid transparent;
+        border-top: 60px solid #a01729;
+    }
+
+    .envelope-body {
+        height: 60px;
+    }
+
+    .envelope-seal {
+        top: 54px;
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .letter h1 {
+        font-size: 1.3rem;
+    }
+
+    .letter-content {
+        font-size: 0.9rem;
+    }
+}
