@@ -41,7 +41,8 @@ closeBtn.addEventListener('click', function(e) {
 
 // Crear copos de nieve (versión optimizada)
 let snowflakeCount = 0;
-const maxSnowflakes = 50; // Límite máximo de copos
+const maxSnowflakes = 50;
+let snowInterval;
 
 function createSnowflake() {
     if (snowflakeCount >= maxSnowflakes) return;
@@ -67,6 +68,27 @@ function createSnowflake() {
     }, duration * 1000);
 }
 
+// Iniciar nieve
+snowInterval = setInterval(createSnowflake, 200);
+
+// Detener nieve cuando se abre la carta
+function stopSnow() {
+    clearInterval(snowInterval);
+    // Eliminar todos los copos existentes
+    const existingSnowflakes = document.querySelectorAll('.snowflake');
+    existingSnowflakes.forEach(flake => {
+        if (flake.parentNode) {
+            flake.parentNode.removeChild(flake);
+        }
+    });
+    snowflakeCount = 0;
+}
+
+// Reiniciar nieve cuando se cierra la carta
+function startSnow() {
+    snowInterval = setInterval(createSnowflake, 200);
+}
+
 setInterval(createSnowflake, 200);
 
 setInterval(createSnowflake, 300);
@@ -82,3 +104,4 @@ for (let i = 0; i < 50; i++) {
     starsContainer.appendChild(star);
 
 }
+
