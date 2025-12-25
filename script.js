@@ -12,9 +12,12 @@ envelopeWrapper.addEventListener('click', function() {
         letter.classList.add('show');
         isOpen = true;
         
+        // Detener la nieve
+        stopSnow();
+        
         // Reproducir música al abrir el sobre
         if (music) {
-            music.volume = 0.1; // Ajusta el volumen aquí
+            music.volume = 0.3;
             music.play().catch(error => {
                 console.log('Error al reproducir:', error);
             });
@@ -36,6 +39,9 @@ closeBtn.addEventListener('click', function(e) {
         envelopeWrapper.classList.remove('hidden');
         instruction.classList.remove('hidden');
         isOpen = false;
+        
+        // Reiniciar la nieve
+        startSnow();
     }, 800);
 });
 
@@ -89,10 +95,6 @@ function startSnow() {
     snowInterval = setInterval(createSnowflake, 200);
 }
 
-setInterval(createSnowflake, 200);
-
-setInterval(createSnowflake, 300);
-
 // Crear estrellas
 const starsContainer = document.getElementById('stars');
 for (let i = 0; i < 50; i++) {
@@ -102,6 +104,4 @@ for (let i = 0; i < 50; i++) {
     star.style.top = Math.random() * 100 + '%';
     star.style.animationDelay = Math.random() * 3 + 's';
     starsContainer.appendChild(star);
-
 }
-
